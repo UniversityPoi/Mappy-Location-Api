@@ -79,5 +79,22 @@ namespace MappyUserApi.Controllers
         return Ok(result);
       }
     }
+
+
+    //=============================================================================================
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteById(Guid id)
+    {
+      var location = await _favoriteLocationService.DeleteAsync(id);
+
+      if (location is null)
+      {
+        return NotFound(new { message = $"No location with id {id} exist!" });
+      }
+      else
+      {
+        return Ok(location);
+      }
+    }
   }
 }

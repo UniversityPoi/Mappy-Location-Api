@@ -50,5 +50,19 @@ namespace MappyLocationApi.Services
       return await _db.FavoriteLocations.FirstOrDefaultAsync(location => 
         location.UserId == userId && location.Name == name);
     }
+
+
+    //=============================================================================================
+    public async Task<FavoriteLocationModel?> DeleteAsync(Guid id)
+    {
+      var location = await GetAsync(id);
+
+      if (location is not null)
+      {
+        _db.Remove(location);
+      }
+
+      return location;
+    }
   }
 }
