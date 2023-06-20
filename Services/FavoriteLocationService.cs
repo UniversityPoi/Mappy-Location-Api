@@ -59,7 +59,12 @@ namespace MappyLocationApi.Services
 
       if (location is not null)
       {
-        _db.Remove(location);
+        var result = _db.Remove(location);
+
+        if (result.State == EntityState.Deleted)
+        {
+          await _db.SaveChangesAsync();
+        }
       }
 
       return location;
